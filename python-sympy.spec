@@ -11,6 +11,7 @@ Source0: %{module}-%{version}.tar.bz2
 License: BSD
 Group: Development/Python
 Url: http://code.google.com/p/sympy/
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 BuildRequires: python-devel
 
