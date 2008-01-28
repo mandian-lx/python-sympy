@@ -1,6 +1,6 @@
 %define module sympy
 %define name python-%{module}
-%define version 0.5.11
+%define version 0.5.12
 %define release %mkrel 1
 
 Summary: Python library for symbolic mathematics
@@ -9,10 +9,11 @@ Version: %{version}
 Release: %{release}
 Source0: %{module}-%{version}.tar.bz2
 License: BSD
-Group: Development/Python
-Url: http://code.google.com/p/sympy/
+Group: 	 Development/Python
+Url: 	 http://code.google.com/p/sympy/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
+Requires:  python-numpy
 BuildRequires: python-devel
 
 %description
