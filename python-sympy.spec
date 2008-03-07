@@ -1,13 +1,13 @@
 %define module sympy
 %define name python-%{module}
-%define version 0.5.12
+%define version 0.5.13
 %define release %mkrel 1
 
 Summary: Python library for symbolic mathematics
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: %{module}-%{version}.tar.bz2
+Source0: %{module}-%{version}.tar.lzma
 License: BSD
 Group: 	 Development/Python
 Url: 	 http://code.google.com/p/sympy/
