@@ -1,6 +1,6 @@
 %define module sympy
 %define name python-%{module}
-%define version 0.5.15
+%define version 0.6.0
 %define release %mkrel 1
 
 Summary: Python library for symbolic mathematics
@@ -12,9 +12,10 @@ License: BSD
 Group: 	 Development/Python
 Url: 	 http://code.google.com/p/sympy/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildArch: noarch
 Requires:  python-numpy
+Suggests:  python-gmpy >= 1.03, python-pyglet
 BuildRequires: python-devel
+BuildArch: noarch
 
 %description
 SymPy is a Python library for symbolic mathematics. It aims to become
@@ -26,18 +27,15 @@ any external libraries, except optionally for plotting support.
 %prep
 %setup -q -n %{module}-%{version}
 
-%build
-%__python setup.py build
-
 %install
-rm -rf $RPM_BUILD_ROOT
-%__python setup.py install --root=%{buildroot} --record=INSTALLED_FILES
-%__sed -ie 's/isympy\.1/isympy\.1\.lzma/' INSTALLED_FILES
+%__rm -rf %{buildroot}
+%__python setup.py install --root=%{buildroot} --record=FILELIST
+%__sed -ie 's/isympy\.1/isympy\.1\.lzma/' FILELIST
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%__rm -rf %{buildroot}
 
-%files -f INSTALLED_FILES
+%files -f FILELIST
 %defattr(-,root,root)
 %doc README LICENSE TODO examples/
 
