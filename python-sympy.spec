@@ -1,16 +1,16 @@
 %define module	sympy
 %define name	python-%{module}
-%define version	0.6.3
+%define version	0.6.4
 %define release	%mkrel 1
 
 Summary:	Python library for symbolic mathematics
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
-Source0:	%{module}-%{version}.tar.lzma
+Source0:	http://sympy.googlecode.com/files/%{module}-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
-Url:		http://code.google.com/p/sympy/
+Url:		http://sympy.googlecode.com/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires: 	python-numpy
 Suggests:	python-gmpy >= 1.03, python-pyglet
