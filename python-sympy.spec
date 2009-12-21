@@ -1,6 +1,6 @@
 %define module	sympy
 %define name	python-%{module}
-%define version	0.6.5
+%define version	0.6.6
 %define release	%mkrel 1
 
 Summary:	Python library for symbolic mathematics
@@ -14,6 +14,7 @@ Url:		http://sympy.googlecode.com/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires: 	python-numpy
 Suggests:	python-gmpy >= 1.03, python-pyglet
+BuildRequires:	python-sphinx, python-docutils
 BuildArch:	noarch
 %py_requires -d
 
@@ -29,13 +30,19 @@ any external libraries, except optionally for plotting support.
 
 %install
 %__rm -rf %{buildroot}
-%__python setup.py install --root=%{buildroot} --record=FILELIST
-%__sed -ie 's/isympy\.1/isympy\.1\.lzma/' FILELIST
+%__python setup.py install --root=%{buildroot}
+%make -C doc html
+%__rm -f %{buildroot}%{_bindir}/test %{buildroot}%{_bindir}/doctest %{buildroot}%{_bindir}/py.bench
 
 %clean
 %__rm -rf %{buildroot}
 
-%files -f FILELIST
+%files 
 %defattr(-,root,root)
-%doc README LICENSE TODO examples/
+%doc AUTHORS README LICENSE TODO examples/ doc/_build/html
+%_bindir/isympy
+%_mandir/man1/isympy.*
+%dir %{py_sitedir}/%{module}
+%{py_sitedir}/%{module}/*
+%{py_sitedir}/%{module}-*.egg-info
 
