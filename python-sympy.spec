@@ -1,7 +1,7 @@
 %define module	sympy
 %define name	python-%{module}
-%define version	0.6.7
-%define release	%mkrel 2
+%define version	0.7.0
+%define release	%mkrel 1
 
 Summary:	Python library for symbolic mathematics
 Name:		%{name}
