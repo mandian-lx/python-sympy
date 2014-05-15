@@ -1,2 +1,4 @@
+removed_sources:
+  sympy-0.7.1.tar.gz: b8609cc7e08d2883f96526ee8a4afdc90d77b911
 sources:
-  "sympy-0.7.1.tar.gz": b8609cc7e08d2883f96526ee8a4afdc90d77b911
+  sympy-0.7.5.tar.gz: 27d4a87b6ab99c82b92c3d41de0dca4615dbbbc1
