@@ -15,6 +15,7 @@ BuildRequires:	python-sphinx, python-docutils, python-mpmath
 BuildArch:	noarch
 BuildRequires:  python-devel
 BuildRequires:  librsvg
+BuildRequires:  imagemagick
 
 Patch0:		sympy-0.7.5-mpmath.patch
 
