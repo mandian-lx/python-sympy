@@ -4,7 +4,7 @@ Summary:	Python library for symbolic mathematics
 
 Name:		python-%{module}
 Version:	0.7.5
-Release:	1
+Release:	2
 Source0:	https://github.com/sympy/sympy/releases/download/%{module}-%{version}/%{module}-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
