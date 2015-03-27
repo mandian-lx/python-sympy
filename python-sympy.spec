@@ -3,9 +3,9 @@
 Summary:	Python library for symbolic mathematics
 
 Name:		python-%{module}
-Version:	0.7.5
-Release:	2
-Source0:	https://github.com/sympy/sympy/releases/download/%{module}-%{version}/%{module}-%{version}.tar.gz
+Version:	0.7.6
+Release:	1
+Source0:	https://github.com/sympy/sympy/releases/download/sympy-0.7.6/sympy-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
 Url:		http://sympy.googlecode.com/
@@ -72,9 +72,9 @@ sed -i \
 %patch0 -p1
 
 %install
-%__python setup.py install --root=%{buildroot}
+python setup.py install --root=%{buildroot}
 %make -C doc html
-%__rm -f %{buildroot}%{_bindir}/test %{buildroot}%{_bindir}/doctest %{buildroot}%{_bindir}/py.bench
+rm -f %{buildroot}%{_bindir}/test %{buildroot}%{_bindir}/doctest %{buildroot}%{_bindir}/py.bench
 
 %clean
 
@@ -85,6 +85,3 @@ sed -i \
 %dir %{py_puresitedir}/%{module}
 %{py_puresitedir}/%{module}/*
 %{py_puresitedir}/%{module}-*.egg-info
-
-
-
