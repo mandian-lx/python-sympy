@@ -3,21 +3,22 @@
 Summary:	Python library for symbolic mathematics
 
 Name:		python-%{module}
-Version:	0.7.5
-Release:	2
+Version:	1.0
+Release:	1
 Source0:	https://github.com/sympy/sympy/releases/download/%{module}-%{version}/%{module}-%{version}.tar.gz
 License:	BSD
 Group:		Development/Python
 Url:		http://sympy.googlecode.com/
-Requires: 	python-numpy, python-mpmath
-Suggests:	python-gmpy >= 1.03, python-pyglet
-BuildRequires:	python-sphinx, python-docutils, python-mpmath
+Requires: 	python-numpy
 BuildArch:	noarch
-BuildRequires:  python-devel
+BuildRequires:	python-sphinx
+BuildRequires:	python-docutils
+BuildRequires:  python3-devel
 BuildRequires:  librsvg
 BuildRequires:  imagemagick
-
-Patch0:		sympy-0.7.5-mpmath.patch
+BuildRequires:	python2-devel
+BuildRequires:	python-setuptools
+BuildRequires:	python2-setuptools
 
 %description
 SymPy is a Python library for symbolic mathematics. It aims to become
@@ -26,60 +27,31 @@ as simple as possible in order to be comprehensible and easily
 extensible. SymPy is written entirely in Python and does not require
 any external libraries, except optionally for plotting support.
 
+%package -n python2-sympy
+Requires:	python2-numpy
+
 %prep
 %setup -q -n %{module}-%{version}
 
-# Use python-mpmath package
-# http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/dev-python/sympy/sympy-0.7.1.ebuild?revision=1.2&view=markup
-rm -rf sympy/mpmath/*
-sed -i \
-    -e "s:sympy\.mpmath:mpmath:g" \
-    -e "s:from sympy import mpmath:import mpmath:g" \
-    sympy/core/function.py \
-    sympy/core/numbers.py \
-    sympy/core/tests/test_sets.py \
-    sympy/core/tests/test_evalf.py \
-    sympy/core/tests/test_sympify.py \
-    sympy/core/tests/test_numbers.py \
-    sympy/core/power.py \
-    sympy/core/evalf.py \
-    sympy/core/expr.py \
-    sympy/core/sets.py \
-    sympy/external/tests/test_numpy.py \
-    sympy/geometry/ellipse.py \
-    sympy/functions/combinatorial/numbers.py \
-    sympy/functions/special/bessel.py \
-    sympy/functions/special/gamma_functions.py \
-    sympy/ntheory/partitions_.py \
-    sympy/physics/quantum/constants.py \
-    sympy/polys/domains/groundtypes.py \
-    sympy/polys/domains/mpelements.py \
-    sympy/polys/numberfields.py \
-    sympy/polys/rootoftools.py \
-    sympy/polys/polytools.py \
-    sympy/printing/repr.py \
-    sympy/printing/str.py \
-    sympy/printing/latex.py \
-    sympy/simplify/simplify.py \
-    sympy/solvers/solvers.py \
-    sympy/solvers/tests/test_numeric.py \
-    sympy/statistics/distributions.py \
-    sympy/statistics/tests/test_statistics.py \
-    sympy/utilities/lambdify.py \
-    sympy/utilities/tests/test_lambdify.py \
-    || exit 1
-
-%patch0 -p1
+cp -a . %py2dir
 
 %install
+
+pushd %py2dir
+%__python2 setup.py install --root=%{buildroot}
+mv %{buildroot}%{_bindir}/isympy %{buildroot}%{_bindir}/python2-isympy
+mv %{buildroot}%{_mandir}/man1/isympy.1 \
+   %{buildroot}%{_mandir}/man1/python2-isympy.1
+popd
+
 %__python setup.py install --root=%{buildroot}
-%make -C doc html
+#make -C doc html
 %__rm -f %{buildroot}%{_bindir}/test %{buildroot}%{_bindir}/doctest %{buildroot}%{_bindir}/py.bench
 
 %clean
 
 %files 
-%doc AUTHORS LICENSE examples/ doc/_build/html
+%doc AUTHORS LICENSE examples/
 %{_bindir}/isympy
 %{_mandir}/man1/isympy.*
 %dir %{py_puresitedir}/%{module}
@@ -87,4 +59,11 @@ sed -i \
 %{py_puresitedir}/%{module}-*.egg-info
 
 
+%files -n python2-sympy
+%doc AUTHORS LICENSE
+%{_bindir}/python2-isympy
+%{_mandir}/man1/python2-isympy.*
+%dir %{py2_puresitedir}/%{module}
+%{py2_puresitedir}/%{module}/*
+%{py2_puresitedir}/%{module}-*.egg-info
 
