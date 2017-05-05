@@ -9,16 +9,16 @@ Source0:	https://github.com/sympy/sympy/releases/download/%{module}-%{version}/%
 License:	BSD
 Group:		Development/Python
 Url:		http://sympy.googlecode.com/
-Requires: 	python-numpy
 BuildArch:	noarch
+
+BuildRequires:  imagemagick
+BuildRequires:  librsvg
 BuildRequires:	python-sphinx
 BuildRequires:	python-docutils
-BuildRequires:  python3-devel
-BuildRequires:  librsvg
-BuildRequires:  imagemagick
-BuildRequires:	python2-devel
+BuildRequires:  python-devel
 BuildRequires:	python-setuptools
-BuildRequires:	python2-setuptools
+
+Requires: 	python-numpy
 
 %description
 SymPy is a Python library for symbolic mathematics. It aims to become
@@ -27,28 +27,19 @@ as simple as possible in order to be comprehensible and easily
 extensible. SymPy is written entirely in Python and does not require
 any external libraries, except optionally for plotting support.
 
-%package -n python2-sympy
-Requires:	python2-numpy
-
 %prep
 %setup -q -n %{module}-%{version}
 
-cp -a . %py2dir
-
 %install
 
-pushd %py2dir
-%__python2 setup.py install --root=%{buildroot}
+%{__python} setup.py install --root=%{buildroot}
 mv %{buildroot}%{_bindir}/isympy %{buildroot}%{_bindir}/python2-isympy
 mv %{buildroot}%{_mandir}/man1/isympy.1 \
    %{buildroot}%{_mandir}/man1/python2-isympy.1
-popd
 
-%__python setup.py install --root=%{buildroot}
-#make -C doc html
-%__rm -f %{buildroot}%{_bindir}/test %{buildroot}%{_bindir}/doctest %{buildroot}%{_bindir}/py.bench
-
-%clean
+%{__python} setup.py install --root=%{buildroot}
+%make -C doc html
+rm -f %{buildroot}%{_bindir}/test %{buildroot}%{_bindir}/doctest %{buildroot}%{_bindir}/py.bench
 
 %files 
 %doc AUTHORS LICENSE examples/
@@ -57,13 +48,4 @@ popd
 %dir %{py_puresitedir}/%{module}
 %{py_puresitedir}/%{module}/*
 %{py_puresitedir}/%{module}-*.egg-info
-
-
-%files -n python2-sympy
-%doc AUTHORS LICENSE
-%{_bindir}/python2-isympy
-%{_mandir}/man1/python2-isympy.*
-%dir %{py2_puresitedir}/%{module}
-%{py2_puresitedir}/%{module}/*
-%{py2_puresitedir}/%{module}-*.egg-info
 
