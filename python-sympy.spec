@@ -13,7 +13,7 @@ BuildArch:	noarch
 
 BuildRequires:  imagemagick
 BuildRequires:  librsvg
-BuildRequires:	python-sphinx
+#BuildRequires:	python-sphinx
 BuildRequires:	python-docutils
 BuildRequires:  python-devel
 BuildRequires:	python-setuptools
