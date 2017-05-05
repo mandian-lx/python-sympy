@@ -13,12 +13,13 @@ BuildArch:	noarch
 
 BuildRequires:  imagemagick
 BuildRequires:  librsvg
-#BuildRequires:	python-sphinx
+BuildRequires:	python-sphinx
 BuildRequires:	python-docutils
 BuildRequires:  python-devel
 BuildRequires:	python-setuptools
+BuildRequires:	python-mpmath
 
-Requires: 	python-numpy
+#Requires: 	python-numpy
 
 %description
 SymPy is a Python library for symbolic mathematics. It aims to become
