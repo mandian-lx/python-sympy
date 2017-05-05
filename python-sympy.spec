@@ -34,11 +34,6 @@ any external libraries, except optionally for plotting support.
 %install
 
 %{__python} setup.py install --root=%{buildroot}
-mv %{buildroot}%{_bindir}/isympy %{buildroot}%{_bindir}/python2-isympy
-mv %{buildroot}%{_mandir}/man1/isympy.1 \
-   %{buildroot}%{_mandir}/man1/python2-isympy.1
-
-%{__python} setup.py install --root=%{buildroot}
 %make -C doc html
 rm -f %{buildroot}%{_bindir}/test %{buildroot}%{_bindir}/doctest %{buildroot}%{_bindir}/py.bench
 
